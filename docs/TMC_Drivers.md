@@ -58,11 +58,21 @@ probing, probe calibration, and similar. The `driver_TPOWERDOWN` and
 `driver_IHOLDDELAY` should also be calibrated accordingly. If unsure,
 prefer to not specify a `hold_current`.
 
-## Enabling "StealthChop" Mode
+## Setting "spreadCycle" vs "stealthChop" Mode
 
 By default, Klipper places the TMC drivers in "spreadCycle" mode. If
 the driver supports "stealthChop" then it can be enabled by adding
 `stealthchop_threshold: 999999` to the TMC config section.
+
+In general, spreadCycle mode provides greater torque and greater
+positional accuracy than stealthChop mode. Tests comparing modes have
+shown an increase in positional deviation of nearly a full-step when
+using stealthChop mode (for example, on a printer with 40mm
+rotation_distance and 200 steps_per_rotation, position deviation of
+constant speed moves increased by ~0.160mm).
+
+In contrast, stealthChop mode may produce significantly lower audible
+noise on some printers.
 
 It is recommended to always use "spreadCycle" mode (by not specifying
 `stealthchop_threshold`) or to always use "stealthChop" mode (by
